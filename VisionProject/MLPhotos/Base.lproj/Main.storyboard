@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VisionProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYr-jg-fY1">
+                                <rect key="frame" x="0.0" y="281" width="375" height="131"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdK-Z0-FYf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                <color key="backgroundColor" red="0.99905008080000002" green="0.87102919820000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="1Ly-xi-8qq"/>
+                                </constraints>
+                                <state key="normal" title="original image">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressedChoosePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dPI-tl-A7f"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qL2-Cw-rDF">
+                                <rect key="frame" x="0.0" y="417" width="375" height="250"/>
+                                <color key="backgroundColor" red="0.92137303150000005" green="0.99923200550000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="StF-7S-fJu"/>
+                                </constraints>
+                                <state key="normal" title="output image">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="BYr-jg-fY1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="261" id="78w-GU-hyL"/>
+                            <constraint firstAttribute="trailing" secondItem="qL2-Cw-rDF" secondAttribute="trailing" id="HOK-aO-oCD"/>
+                            <constraint firstItem="qL2-Cw-rDF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IQK-lL-7aK"/>
+                            <constraint firstItem="vdK-Z0-FYf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="KO5-3V-QSu"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qL2-Cw-rDF" secondAttribute="bottom" id="XU0-9C-vCe"/>
+                            <constraint firstAttribute="trailing" secondItem="vdK-Z0-FYf" secondAttribute="trailing" id="bG0-cM-YQy"/>
+                            <constraint firstItem="BYr-jg-fY1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eCJ-6s-TfW"/>
+                            <constraint firstAttribute="trailing" secondItem="BYr-jg-fY1" secondAttribute="trailing" id="kYR-3P-MvX"/>
+                            <constraint firstItem="vdK-Z0-FYf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="keN-vi-ggi"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BYr-jg-fY1" secondAttribute="bottom" constant="255" id="vGL-Pv-83K"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buttonOriginalImage" destination="vdK-Z0-FYf" id="rjG-UG-mnY"/>
+                        <outlet property="buttonTargetImage" destination="qL2-Cw-rDF" id="MlA-mL-JCI"/>
+                        <outlet property="resultLabel" destination="BYr-jg-fY1" id="ZLa-EC-dP1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
+        </scene>
+    </scenes>
+</document>

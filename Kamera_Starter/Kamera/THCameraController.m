@@ -601,7 +601,6 @@ static const NSString *THCameraAdjustingExposureContext;
 
 //判断是否录制状态
 - (BOOL)isRecording {
-
     return self.movieOutput.isRecording;
 }
 
@@ -618,7 +617,6 @@ static const NSString *THCameraAdjustingExposureContext;
         {
             //支持则修改当前视频的方向
             videoConnection.videoOrientation = [self currentVideoOrientation];
-            
         }
         
         //判断是否支持视频稳定 可以显著提高视频的质量。只会在录制视频文件涉及
@@ -626,7 +624,6 @@ static const NSString *THCameraAdjustingExposureContext;
         {
             videoConnection.enablesVideoStabilizationWhenAvailable = YES;
         }
-        
         
         AVCaptureDevice *device = [self activeCamera];
         
@@ -646,12 +643,11 @@ static const NSString *THCameraAdjustingExposureContext;
         //查找写入捕捉视频的唯一文件系统URL.
         self.outputURL = [self uniqueURL];
         
+        //开始录制。直播/小视频 ---> 捕捉到视频信息 ---> 压缩(AAC/H264)
+        //录制成一个QuckTime视频文件 --> 存储到相册。(也涉及到编码--硬编码--由于AVFoundation已经替你完成)
         //在捕捉输出上调用方法 参数1:录制保存路径  参数2:代理
         [self.movieOutput startRecordingToOutputFileURL:self.outputURL recordingDelegate:self];
-        
     }
-    
-    
 }
 
 - (CMTime)recordedDuration {
@@ -666,10 +662,11 @@ static const NSString *THCameraAdjustingExposureContext;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     //temporaryDirectoryWithTemplateString  可以将文件写入的目的创建一个唯一命名的目录；
+    //临时文件，没下载完成前是没有后缀名的，下载完成后才会变成正确的后缀名
     NSString *dirPath = [fileManager temporaryDirectoryWithTemplateString:@"kamera.XXXXXX"];
     
     if (dirPath) {
-        
+        //mov.视频封装的容器。和视频编码格式有区别
         NSString *filePath = [dirPath stringByAppendingPathComponent:@"kamera_movie.mov"];
         return  [NSURL fileURLWithPath:filePath];
         
@@ -688,12 +685,9 @@ static const NSString *THCameraAdjustingExposureContext;
     }
 }
 
-#pragma mark - AVCaptureFileOutputRecordingDelegate
+#pragma mark - AVCaptureFileOutputRecordingDelegate 捕捉文件输出
 
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput
-didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
-      fromConnections:(NSArray *)connections
-                error:(NSError *)error {
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
 
     //错误
     if (error) {
@@ -704,13 +698,10 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
         [self writeVideoToAssetsLibrary:[self.outputURL copy]];
         
     }
-    
     self.outputURL = nil;
-    
-
 }
 
-//写入捕捉到的视频
+//写入捕捉到的视频到相册
 - (void)writeVideoToAssetsLibrary:(NSURL *)videoURL {
     
     //ALAssetsLibrary 实例 提供写入视频的接口
@@ -724,7 +715,6 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
         completionBlock = ^(NSURL *assetURL,NSError *error)
         {
             if (error) {
-                
                 [self.delegate assetLibraryWriteFailedWithError:error];
             }else
             {
@@ -770,11 +760,8 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
             
             //发送通知，传递最新的image
             [self postThumbnailNotifification:image];
-            
         });
-        
     });
-    
 }
 
 
